@@ -1,10 +1,7 @@
-import json
 import math
 import random
 
-from typing import List
-
-import matplotlib.pyplot as mp
+from typing import List, Any
 
 from animation import show_animation
 
@@ -77,7 +74,7 @@ class PSO_Algorithm:
     def __init__(self, dimention_of_variable: int, variable_range: tuple[float, float]):
         self._global_best_pos = [0.0, 0.0]
         self._global_best_score = math.inf
-        self._recorded_frame = {}
+        self._recorded_frame: dict[str, dict] = {}
         self.particals : List[Partical] = []
         
         self._dimention_of_variable = dimention_of_variable
@@ -108,7 +105,7 @@ class PSO_Algorithm:
         return self._global_best_score, self._global_best_pos
     
     def record_frame(self, t: int):
-        data = {}
+        data: dict[str, Any] = {}
         for i, partical in enumerate(self.particals):
             data[f'particle_{i}'] = { 'pos': partical.get_pos().copy(), 'v': partical.get_v().copy() }
         data['global_best'] = self._global_best_pos.copy()
